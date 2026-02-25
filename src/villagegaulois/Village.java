@@ -9,6 +9,18 @@ public class Village {
 	private Gaulois[] villageois;
 	private int nbVillageois = 0;
 
+	private static class Marche {
+		private Etal[] etals;
+
+		private Marche(int nbMaxEtal) {
+			this.etals = new Etal[nbMaxEtal];
+		}
+		private void utiliserEtal(int indiceEtal, Gaulois vendeur,String produit, int nbProduit) {
+			
+		}
+		
+	}
+	
 	public Village(String nom, int nbVillageoisMaximum) {
 		this.nom = nom;
 		villageois = new Gaulois[nbVillageoisMaximum];
@@ -56,4 +68,5 @@ public class Village {
 		}
 		return chaine.toString();
 	}
+	
 }
