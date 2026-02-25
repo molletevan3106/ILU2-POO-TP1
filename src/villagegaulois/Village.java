@@ -15,15 +15,72 @@ public class Village {
 		private Marche(int nbMaxEtal) {
 			this.etals = new Etal[nbMaxEtal];
 		}
+		
 		private void utiliserEtal(int indiceEtal, Gaulois vendeur,String produit, int nbProduit) {
-			
+			  etals[indiceEtal].occuperEtal(vendeur, produit, nbProduit);
+		}
+		
+		private int trouverEtalLibre() {
+			for (int i = 0; i < etals.length; i++) {
+				if (etals[i].isEtalOccupe()) {
+					return i;
+				}
+			}
+			return -1;
+		}
+		
+		private Etal[] trouverEtals(String produit) {
+			Etal[] etalProduit = null;
+			int nbetal=0;
+			for (int i = 0; i < etals.length; i++) {
+				if (etals[i].contientProduit(produit)) {
+					nbetal++;
+				}
+			}
+			if(nbetal!=0) {
+			etalProduit=new Etal[nbetal];
+			int a=0;
+			for (int j = 0; j < etals.length; j++) {
+				if (etals[j].contientProduit(produit)) {
+					etalProduit[a]=etals[j];
+				}
+			}
+			}
+			return etalProduit;
+			}
+		
+		private Etal trouverVendeur(Gaulois gaulois) {
+			Etal vendeur=null;
+			for (int i = 0; i < etals.length; i++) {
+				if (etals[i].getVendeur().getNom()==gaulois.getNom()) {
+					vendeur=etals[i];
+					}
+			} 
+			return vendeur;
+		}
+		
+		private String afficherMarche() {
+			StringBuilder chaine = new StringBuilder();
+			int etalvide=0;
+			for (int i = 0; i < etals.length; i++) {
+				if (etals[i].isEtalOccupe()) {
+					chaine.append(etals[i].afficherEtal());
+				} else {
+					etalvide++;
+				}
+			}
+			if (etalvide!=0) {
+				chaine.append("Il reste "+etalvide+" etals non utilises dans le marche.\n");
+			}
+			return chaine.toString();
 		}
 		
 	}
 	
-	public Village(String nom, int nbVillageoisMaximum) {
+	public Village(String nom, int nbVillageoisMaximum,int nbEtalsMax) {
 		this.nom = nom;
 		villageois = new Gaulois[nbVillageoisMaximum];
+		Marche marche= new Marche(nbEtalsMax);
 	}
 
 	public String getNom() {
@@ -68,5 +125,10 @@ public class Village {
 		}
 		return chaine.toString();
 	}
+	
+	public String installerVendeur(Gaulois vendeur, String produit,int nbProduit) {
+		StringBuilder chaine_v= new StringBuilder();
+	}
+	
 	
 }
