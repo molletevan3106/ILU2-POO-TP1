@@ -18,30 +18,51 @@ public class Scenario {
 		Gaulois asterix = new Gaulois("Astérix", 8);
 		Gaulois assurancetourix = new Gaulois("Assurancetourix", 2);
 		Gaulois bonemine = new Gaulois("Bonemine", 7);
-		
+
 		village.ajouterHabitant(bonemine);
 		village.ajouterHabitant(assurancetourix);
 		village.ajouterHabitant(asterix);
 		village.ajouterHabitant(obelix);
 		village.ajouterHabitant(druide);
 		village.ajouterHabitant(abraracourcix);
+		
 		try {
-		    System.out.println(village.afficherVillageois());
+			System.out.println(village.afficherVillageois());
 		} catch (VillageSansChefException e) {
-		    System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
+		}
+		
+		try {
+			System.out.println(village.partirVendeur(bonemine));
+		} catch (NullPointerException e) {
+			System.out.println("Aucun étal trouvé pour ce vendeur.");
 		}
 
+		Etal etalFleur = village.rechercherEtal(bonemine);
+		try {
+			System.out.println(etalFleur.acheterProduit(-10, abraracourcix));
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			System.out.println(etalFleur.acheterProduit(10, druide));
+		} catch (IllegalStateException e) {
+			System.out.println(e.getMessage());
+		}
+
+		System.out.println(village.partirVendeur(bonemine));
+		
+		System.out.println(etalFleur.acheterProduit(10, druide));
+		System.out.println(etalFleur.acheterProduit(10, abraracourcix));
+		System.out.println(etalFleur.acheterProduit(-10, abraracourcix));
 		System.out.println(village.rechercherVendeursProduit("fleurs"));
 		System.out.println(village.installerVendeur(bonemine, "fleurs", 20));
 		System.out.println(village.rechercherVendeursProduit("fleurs"));
-		System.out
-				.println(village.installerVendeur(assurancetourix, "lyres", 5));
+		System.out.println(village.installerVendeur(assurancetourix, "lyres", 5));
 		System.out.println(village.installerVendeur(obelix, "menhirs", 2));
 		System.out.println(village.installerVendeur(druide, "fleurs", 10));
 
 		System.out.println(village.rechercherVendeursProduit("fleurs"));
-		Etal etalFleur = village.rechercherEtal(bonemine);
-		System.out.println(etalFleur.acheterProduit(10, abraracourcix));
 		System.out.println(etalFleur.acheterProduit(15, obelix));
 		System.out.println(etalFleur.acheterProduit(15, assurancetourix));
 		System.out.println(village.partirVendeur(bonemine));
