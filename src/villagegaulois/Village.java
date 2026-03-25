@@ -104,7 +104,7 @@ public class Village {
 	}
 
 	public Gaulois trouverHabitant(String nomGaulois) {
-		if (nomGaulois.equals(chef.getNom())) {
+		if (nomGaulois!= null && nomGaulois.equals(chef.getNom())) {
 			return chef;
 		}
 		for (int i = 0; i < nbVillageois; i++) {
